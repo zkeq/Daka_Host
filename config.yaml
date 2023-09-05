@@ -1,0 +1,23 @@
+name: TuoStatic
+hotpatch:
+    - https://githubusercontent.onmicrosoft.cn/zkeq/Daka_Host/main/cw.js
+hotconfig:
+    - https://githubusercontent.onmicrosoft.cn/zkeq/Daka_Host/main/config.yaml
+catch_rules:
+  - rule: _
+    transform_rules:
+      - search: \#.+
+        searchin: url
+        replace: ''
+      - search: _
+        replace: daka-static.onmicrosoft.cn
+        action: fetch
+        fetch:
+          engine: fetch
+          redirect: manual 
+      - search: (^4|^5) 
+        searchin: status 
+        action: return
+        return:
+          body: The GateWay is down! This Page is provided by ClientWorker!
+          status: 503
